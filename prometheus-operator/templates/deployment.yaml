@@ -1,0 +1,47 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+{{ include "labels.stakater" . | indent 4 }}
+{{ include "labels.chart" . | indent 4 }}
+  name: prometheus-operator
+spec:
+  replicas: {{ .Values.prometheusOperator.deployment.replicas }}
+  template:
+    metadata:
+      labels:
+{{ include "labels.selector" . | indent 8 }}
+    spec:
+      containers:
+      - args:
+        - --kubelet-service={{ .Values.prometheusOperator.deployment.kubeletService }}
+        - --config-reloader-image={{ .Values.prometheusOperator.deployment.reloaderImage }}
+        image: {{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}
+        name: {{ template "name" . }}
+        ports:
+        - containerPort: 8080
+          name: http
+        {{- with .Values.prometheusOperator.deployment.resources }}
+        resources:
+          {{- with .limits }}
+          limits:
+            {{- with .cpu }}
+            cpu: {{ . }}
+            {{- end }}
+            {{- with .memory }}
+            memory: {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- with .requests }}
+          requests:
+            {{- with .cpu }}
+            cpu: {{ . }}
+            {{- end }}
+            {{- with .memory }}
+            memory: {{ . }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      serviceAccountName: {{ template "name" . }}
+      nodeSelector:
+        failure-domain.beta.kubernetes.io/zone: {{ .Values.prometheusOperator.deployment.nodeSelectorZone }}

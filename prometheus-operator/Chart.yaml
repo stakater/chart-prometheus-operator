@@ -1,0 +1,11 @@
+apiVersion: v1
+name: prometheus-operator
+description: prometheus-operator chart that runs on kubernetes
+version: 1.0.0
+keywords:
+  - prometheus-operator
+  - kubernetes
+home: https://github.com/stakater/chart-prometheus-operator
+maintainers:
+- name: Stakater
+  email: stakater@aurorasolutions.io
