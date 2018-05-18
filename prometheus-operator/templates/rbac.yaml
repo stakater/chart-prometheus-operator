@@ -76,4 +76,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: {{ template "name" . }}
-  namespace: monitoring
+  namespace: {{ .Values.prometheusOperator.namespace }}

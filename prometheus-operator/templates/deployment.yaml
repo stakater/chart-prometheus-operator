@@ -4,19 +4,19 @@ metadata:
   labels:
 {{ include "labels.stakater" . | indent 4 }}
 {{ include "labels.chart" . | indent 4 }}
-  name: prometheus-operator
+  name: {{ template "name" . }}
 spec:
   replicas: {{ .Values.prometheusOperator.deployment.replicas }}
   template:
     metadata:
       labels:
-{{ include "labels.selector" . | indent 8 }}
+        k8s-app: {{ template "name" . }}
     spec:
       containers:
       - args:
         - --kubelet-service={{ .Values.prometheusOperator.deployment.kubeletService }}
         - --config-reloader-image={{ .Values.prometheusOperator.deployment.reloaderImage }}
-        image: {{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}
+        image: "{{ .Values.prometheusOperator.image.name }}:{{ .Values.prometheusOperator.image.tag }}"
         name: {{ template "name" . }}
         ports:
         - containerPort: 8080
