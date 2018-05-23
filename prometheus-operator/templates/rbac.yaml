@@ -29,8 +29,11 @@ rules:
 - apiGroups:
   - monitoring.coreos.com
   resources:
+  - alertmanager
   - alertmanagers
+  - prometheus
   - prometheuses
+  - service-monitor
   - servicemonitors
   verbs:
   - "*"
@@ -76,4 +79,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: {{ template "name" . }}
-  namespace: {{ .Values.prometheusOperator.namespace }}
+  namespace: {{ .Release.Namespace }}
