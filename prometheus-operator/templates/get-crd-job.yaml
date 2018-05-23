@@ -1,0 +1,32 @@
+# Job completes when it can find CRDs created by prometheus operator
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    helm.sh/hook: post-install
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": hook-succeeded
+  labels:
+{{ include "labels.stakater" . | indent 4 }}
+{{ include "labels.chart" . | indent 4 }}
+  name: {{ template "name" . }}-get-crd
+spec:
+  template:
+    metadata:
+      labels:
+{{ include "labels.selector" . | indent 8 }}
+      name: {{ template "name" . }}-get-crd
+    spec:
+      containers:
+        - name: hyperkube
+          image: "{{ .Values.global.hyperkube.image }}:{{ .Values.global.hyperkube.tag }}"
+          imagePullPolicy: "{{ .Values.global.hyperkube.pullPolicy }}"
+          command:
+            - ./kubectl
+            - get
+            - customresourcedefinitions
+            - alertmanagers.monitoring.coreos.com
+            - prometheuses.monitoring.coreos.com
+            - servicemonitors.monitoring.coreos.com
+      restartPolicy: OnFailure
+      serviceAccountName: {{ template "name" . }}

@@ -1,9 +1,10 @@
 prometheusOperator:
+  apiVersion: "monitoring.coreos.com/v1"
   labels:
     group: com.stakater.platform
     provider: stakater
     version: 0.17.0
-  namespace: dev
+
   image:
     name: quay.io/coreos/prometheus-operator
     tag: v0.17.0
@@ -18,9 +19,14 @@ prometheusOperator:
       requests:
         cpu: 100m
         memory: 50Mi
-    nodeSelectorZone: us-west-2a
+    nodeSelectorZone: eu-west-1a
   service:
     expose: "true"
     forceSslRedirect: "true"
     ingressClass: internal-ingress
     annotations:
+global:
+  hyperkube:
+    image: quay.io/coreos/hyperkube
+    tag: v1.8.7_coreos.0
+    pullPolicy: IfNotPresent
