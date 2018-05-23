@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "name" . }}-create-sm-job
+data:
+  servicemonitor-operator.yaml: |-
+      apiVersion: {{ .Values.prometheusOperator.apiVersion  | quote }}
+      kind: ServiceMonitor
+      metadata:
+        name: prometheus-operator
+        labels:
+{{ include "labels.stakater" . | indent 10 }}
+          k8s-app: prometheus-operator
+      spec:
+        endpoints:
+        - port: http
+        selector:
+          matchLabels:
+            k8s-app: prometheus-operator
