@@ -3,7 +3,6 @@ prometheusOperator:
     group: com.stakater.platform
     provider: stakater
     version: 0.17.0
-  namespace: dev
   image:
     name: quay.io/coreos/prometheus-operator
     tag: v0.17.0
