@@ -20,8 +20,3 @@ prometheusOperator:
     nodeSelector:
      key: failure-domain.beta.kubernetes.io/zone
      value: us-west-2a
-  service:
-    expose: "true"
-    forceSslRedirect: "true"
-    ingressClass: internal-ingress
-    annotations:
