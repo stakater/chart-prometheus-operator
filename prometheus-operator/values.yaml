@@ -17,7 +17,9 @@ prometheusOperator:
       requests:
         cpu: 100m
         memory: 50Mi
-    nodeSelectorZone: us-west-2a
+    nodeSelector:
+     key: failure-domain.beta.kubernetes.io/zone
+     value: us-west-2a
   service:
     expose: "true"
     forceSslRedirect: "true"

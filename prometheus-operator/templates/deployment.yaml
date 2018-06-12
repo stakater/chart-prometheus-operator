@@ -44,5 +44,7 @@ spec:
           {{- end }}
         {{- end }}
       serviceAccountName: {{ template "name" . }}
+      {{- if .Values.prometheusOperator.deployment.nodeSelector }}
       nodeSelector:
-        failure-domain.beta.kubernetes.io/zone: {{ .Values.prometheusOperator.deployment.nodeSelectorZone }}
+        {{ .Values.prometheusOperator.deployment.nodeSelector.key }}: {{ .Values.prometheusOperator.deployment.nodeSelector.value }}
+      {{- end }}
