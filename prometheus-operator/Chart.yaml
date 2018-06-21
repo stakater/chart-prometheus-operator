@@ -1,7 +1,7 @@
 apiVersion: v1
 name: prometheus-operator
 description: prometheus-operator chart that runs on kubernetes
-version: 1.0.2
+version: 1.0.3
 keywords:
   - prometheus-operator
   - kubernetes
