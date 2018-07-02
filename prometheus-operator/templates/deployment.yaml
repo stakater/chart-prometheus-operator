@@ -43,6 +43,7 @@ spec:
             {{- end }}
           {{- end }}
         {{- end }}
+      securityContext: {}
       serviceAccountName: {{ template "name" . }}
       {{- if .Values.prometheusOperator.deployment.nodeSelector }}
       nodeSelector:
