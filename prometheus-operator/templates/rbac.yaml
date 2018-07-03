@@ -84,7 +84,7 @@ subjects:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1alpha1
 metadata:
-  name: cluster-admin
+  name: po-cluster-admin-role
 rules:
 - apiGroups: ["*"]
   resources: ["*"]
@@ -95,12 +95,12 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1alpha1
 metadata:
-  name: admin
+  name: po-cluster-admin-binding
 subjects:
 - kind: ServiceAccount
   namespace: {{ .Release.Namespace }}
   name: {{ template "name" . }}
 roleRef:
   kind: ClusterRole
-  name: cluster-admin
+  name: po-cluster-admin-role
   apiGroup: rbac.authorization.k8s.io
