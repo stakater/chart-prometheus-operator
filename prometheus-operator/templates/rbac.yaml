@@ -82,7 +82,7 @@ subjects:
   namespace: {{ .Release.Namespace }}
 ---
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1alpha1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: po-cluster-admin-role
 rules:
@@ -93,7 +93,7 @@ rules:
   verbs: ["*"]
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1alpha1
+apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: po-cluster-admin-binding
 subjects:
