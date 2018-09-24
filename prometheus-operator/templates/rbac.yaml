@@ -35,6 +35,9 @@ rules:
   - prometheuses
   - service-monitor
   - servicemonitors
+  - prometheuses/finalizers
+  - alertmanagers/finalizers
+  - prometheusrules
   verbs:
   - "*"
 - apiGroups:
